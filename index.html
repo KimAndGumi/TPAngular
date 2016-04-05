@@ -7,25 +7,41 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 
 </head>
+
 <body ng-app="pokedex">
-
+	<!--<div ng-app=""><p>{{5+5}}</p></div>-->
 	<div class="container">
-		<h1>Pokésir</h1>
-
+		<h1>Dans le laboratoire du professeur Chen</h1
+		<!-- Q1 & Q2 -->
+		<p>Entraîneur, quel est ton nom ?</p>
+		<p><input type='text' ng-model="id"></p>
+		<p>Bienvenue {{id}}! Quel va être ton pokemon starter ?</p>
 		<!-- Search -->
-		<div></div>
-
-		<!-- Pokémon information -->
-		<div></div>
-
+		<div ng-controller='search' ng-init='getListePokemon()'>
+			<input type='text' ng-model="filtre"></p>
+			<select ng-model="numeropokemon">
+				<option ng-repeat="pokemon in listePokemon|filter:filtre" value="{{pokemon.entry_number}}">{{pokemon.pokemon_species.name}}</option>
+			</select>
+			<p>Tu as choisi le pokemon n°{{numeropokemon}}. Es-tu sûr ?</p>	
+			<button ng-click='send()'>Go!</button>
+			<!-- Pokémon information -->
+			<div id="fiche" ng-show='ficheOK'>
+				<p>Nom : {{res.name}}</p>
+				<p>Pokedex ID : {{res.id}}</p>
+				<p>Taille : {{res.height}}cm</p>
+				<p>Poids : {{res.weight}}g</p>
+				<span>Attaques : <ul>
+					<li ng-repeat="item in res.abilities">{{item.ability.name}}</li>
+				</ul></span>	
+			</div>
+		</div>
 	</div>
-
     <!-- Dependencies -->
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/angular-resource.min.js"></script>
-
+	
     <!-- Pokedex app -->
     <script src="js/pokedex.js"></script>
 
